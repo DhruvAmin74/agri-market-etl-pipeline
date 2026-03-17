@@ -1,0 +1,48 @@
+2026-03-17 16:32:43 | INFO     | Logger initialized successfully.
+2026-03-17 16:32:43 | INFO     | Database target  : output/agri_market.db
+2026-03-17 16:32:43 | INFO     | Log file target  : output/pipeline_execution.log
+2026-03-17 16:32:43 | INFO     | Data directory   : data/
+2026-03-17 16:32:43 | INFO     | Output directory : output/
+2026-03-17 16:35:12 | INFO     | Initiating data extraction via Kaggle API...
+2026-03-17 16:35:17 | INFO     | Dataset downloaded to: /root/.cache/kagglehub/datasets/ishankat/daily-wholesale-commodity-prices-india-mandis/versions/1
+2026-03-17 16:35:17 | INFO     | CSV located at: /root/.cache/kagglehub/datasets/ishankat/daily-wholesale-commodity-prices-india-mandis/versions/1/commodity_price.csv
+2026-03-17 16:35:17 | INFO     | Loading first 500,000 rows into memory...
+2026-03-17 16:35:17 | INFO     | ✅ Extraction complete. Records loaded: 2,733
+2026-03-17 16:37:05 | INFO     | Column names standardized successfully.
+2026-03-17 16:37:05 | INFO     | Data profiling complete.
+2026-03-17 16:38:16 | INFO     | Starting data transformation and cleansing...
+2026-03-17 16:38:16 | INFO     | After null drop: 2,733 records remaining.
+2026-03-17 16:38:16 | INFO     | Dates standardized. Sample: 2025-05-19
+2026-03-17 16:38:16 | INFO     | String columns normalized to Title Case.
+2026-03-17 16:38:16 | INFO     | Zero Min_Price entries fixed: 9
+2026-03-17 16:38:16 | INFO     | Price anomalies (swapped Min/Max): 9
+2026-03-17 16:38:16 | INFO     | Transformation complete. 0 records removed. 2,733 clean records ready.
+2026-03-17 16:39:27 | INFO     | Creating SQLite database at: output/agri_market.db
+2026-03-17 16:39:27 | INFO     | Table created: Dim_Location
+2026-03-17 16:39:27 | INFO     | Table created: Dim_Commodity
+2026-03-17 16:39:27 | INFO     | Table created: Fact_Market_Price
+2026-03-17 16:39:27 | INFO     | Table created: Fact_Predictions
+2026-03-17 16:39:27 | INFO     | Indexes created on Fact_Market_Price.
+2026-03-17 16:39:27 | INFO     | Database schema creation complete.
+2026-03-17 16:40:39 | INFO     | Connecting to SQLite: output/agri_market.db
+2026-03-17 16:40:39 | INFO     | Building Dim_Location dimension table...
+2026-03-17 16:40:39 | INFO     | Dim_Location loaded: 269 unique locations.
+2026-03-17 16:40:39 | INFO     | Building Dim_Commodity dimension table...
+2026-03-17 16:40:39 | INFO     | Dim_Commodity loaded: 420 unique commodities.
+2026-03-17 16:40:39 | INFO     | Fetching assigned IDs from database for FK mapping...
+2026-03-17 16:40:39 | INFO     | Mapping foreign keys to build Fact_Market_Price...
+2026-03-17 16:40:39 | INFO     | Fact table is empty. Performing full initial load.
+2026-03-17 16:40:39 | INFO     | Inserting 2,733 fact records into DB...
+2026-03-17 16:40:39 | INFO     | ✅ All data loaded into SQLite successfully.
+2026-03-17 16:42:06 | INFO     | All 20 queries saved to: sql/queries.sql
+2026-03-17 16:43:24 | INFO     | Initiating ML pipeline...
+2026-03-17 16:43:24 | INFO     | Loaded 2,733 records for ML training.
+2026-03-17 16:43:24 | INFO     | Engineering features...
+2026-03-17 16:43:26 | INFO     | Feature engineering complete.
+2026-03-17 16:43:26 | INFO     | Train size: 2,323 | Test size: 410
+2026-03-17 16:43:26 | INFO     | Training Random Forest Regressor...
+2026-03-17 16:43:29 | INFO     | Model training complete.
+2026-03-17 16:43:29 | INFO     | MAE : 194.69 | RMSE: 618.40 | MAPE: 2.79%
+2026-03-17 16:43:29 | INFO     | Writing predictions to Fact_Predictions table...
+2026-03-17 16:43:29 | INFO     | ✅ 410 predictions stored in Fact_Predictions.
+2026-03-17 16:45:39 | INFO     | Dashboard saved to: output/plots/dashboard.png
